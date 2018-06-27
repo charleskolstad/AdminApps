@@ -117,11 +117,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\CSS\admin.css" />
+    <Content Include="Assets\CSS\login.css" />
+    <Content Include="Assets\JS\angular\AdminModule.js" />
+    <Content Include="Assets\JS\angular\UsersCtrl.js" />
+    <Content Include="Assets\JS\SideNav.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -133,6 +139,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Views\Admin\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -140,8 +147,16 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\AdminApps_Core\AdminApps_Core.csproj">
+      <Project>{bc69e454-e413-4b97-bcb1-f323db9af7ae}</Project>
+      <Name>AdminApps_Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AdminApps_Model\AdminApps_Model.csproj">
+      <Project>{6e6e8c08-2db2-41ea-b277-e4f15dd0fca6}</Project>
+      <Name>AdminApps_Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -2,6 +2,7 @@
 using AdminApps_Model;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -62,6 +63,36 @@ namespace AdminApps_Web.Controllers
                 return string.Empty;
 
             return "Error deleting user.";
+        }
+
+        public JsonResult GetUserByName()
+        {
+            UserInfo userInfo = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
+            return Json(userInfo, JsonRequestBehavior.AllowGet);
+        }
+
+        public string UpdateProfile(UserInfo user)
+        {
+            string errorMessage = string.Empty;
+            UserManager.UpdateUser(user, out errorMessage);
+
+            return errorMessage;
+        }
+
+        public string SaveProfileImage(string newImage)
+        {
+            string errorMessage = string.Empty;
+            UserInfo userInfo = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
+
+            string fileName = "~/Assets/IMG/UploadIMG/" + Guid.NewGuid().ToString() + ".png";
+            byte[] data = Convert.FromBase64String(newImage);
+            var fileStream = new FileStream(Server.MapPath(fileName), FileMode.Create, FileAccess.ReadWrite);
+            fileStream.Write(data, 0, data.Length);
+            fileStream.Close();
+            userInfo.ProfileImage = newImage;
+
+            UserManager.UpdateUser(userInfo, out errorMessage);
+            return errorMessage;
         }
         #endregion
     }

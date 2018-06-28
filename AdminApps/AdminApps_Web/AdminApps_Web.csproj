@@ -151,7 +151,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Assets\IMG\UploadIMG\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AdminApps_Core\AdminApps_Core.csproj">
       <Project>{bc69e454-e413-4b97-bcb1-f323db9af7ae}</Project>

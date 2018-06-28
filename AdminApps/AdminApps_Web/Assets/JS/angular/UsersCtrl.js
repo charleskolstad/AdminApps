@@ -66,8 +66,16 @@
             datatype: "json",
             data: JSON.stringify(user)
         }).then(function (response) {
-            alert(response.data);
-            angular.element('#editMod').modal("hide");
+            if (response.data == '') {
+                if (user.UserInfoID <= 0)
+                    alert('User saved successfully!');
+                else
+                    alert('User updated successfully!');
+
+                angular.element('#editMod').modal("hide");
+            } else {
+                alert(response.data);
+            }
             $scope.GetAllUsers();
         })
     }
@@ -85,9 +93,15 @@
             datatype: "json",
             data: JSON.stringify({ delUser: $scope.delUser })
         }).then(function (response) {
-            alert(response.data);
-            angular.element('#deleteMod').modal("hide");
-            $scope.GetAllUsers();
+            if (response.data != '') {
+                alert(response.data);
+                $scope.GetAllUsers();
+            }
+            else {
+                alert('User removed successfully.');
+                $scope.GetAllUsers();
+                angular.element('#deleteMod').modal("hide");
+            }            
         })
     }
 });

@@ -1,0 +1,54 @@
+﻿@{
+    Layout = null;
+}
+
+<div ng-controller="ProfileCtrl">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2"><img src="https://placeimg.com/125/125/people" alt="" class="rounded-circle profile-img"></div>
+                <div class="col-md-10">
+                    <h1 class="display-4 profile-name">Charles Kolstad</h1>
+                    <button class="btn btn-outline-secondary" data-toggle="modal" data-target="#profileImage">Change profile image</button>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <label for="">Name</label>
+            <input type="text" class="form-control">
+            <label for="">Email</label>
+            <input type="text" class="form-control"><hr>
+
+            <button class="btn btn-success">Update Account</button>
+        </div>
+        <div class="card-footer"></div>
+    </div>
+
+    <div class="modal fade" id="profileImage" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="ProfileFile" name="file" onchange="angular.element(this).scope().ProfileImage(this)" accept="image/*" class="form-control-file" />
+
+                    <div class="box">
+                        <canvas id="ProfileCanvas" width="350" height="250"></canvas>
+                    </div>
+
+                    Zoom it:
+                    <input id='ProfileSlider' type='range' min='1' max='3.0' step='0.01' value='1.0' />
+                    <button id="ProfileCancel" class="btn btn-link text-danger btn-md cancel-image" ng-click="cancelFile()">Cancel</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

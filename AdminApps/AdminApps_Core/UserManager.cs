@@ -178,6 +178,7 @@ namespace AdminApps_Core
                     user.UserInfoID = Convert.ToInt32(row["UserInfoID"]);
                     user.UserName = row["UserName"].ToString();
                     user.Email = row["Email"].ToString();
+                    user.ProfileImage = row["ProfileImage"].ToString();
                     user.GroupUsers = GetGroupsByUserName(user.UserName, sprocCalls);
 
                     allUsers.Add(user);

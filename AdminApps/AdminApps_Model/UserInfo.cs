@@ -11,6 +11,7 @@ namespace AdminApps_Model
         public int UserInfoID { get; set; }
         public string UserName { get; set; }
         public string Email { get; set; }
+        public string ProfileImage { get; set; }
         public List<UserGroups> GroupUsers { get; set; }
     }
 }

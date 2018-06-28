@@ -26,6 +26,7 @@ namespace AdminApps_Data
         public override bool UserInfoUpdate(UserInfo user)
         {
             DBCommands.PopulateParams("@UserName", user.UserName);
+            DBCommands.PopulateParams("@ProfileImage", user.ProfileImage);
             DBCommands.PopulateParams("@GroupUsers", MapGroupListToTable(user.GroupUsers));
 
             return DBCommands.ExecuteNonQuery("p_UserInfo_Update");
@@ -56,11 +57,13 @@ namespace AdminApps_Data
             users.Columns.Add("UserInfoID");
             users.Columns.Add("UserName");
             users.Columns.Add("Email");
+            users.Columns.Add("ProfileImage");
 
             DataRow row = users.NewRow();
             row["UserInfoID"] = 1;
             row["UserName"] = "TestUser";
             row["Email"] = "test@Test.com";
+            row["ProfileImage"] = "Image";
             users.Rows.Add(row);
 
             return users;

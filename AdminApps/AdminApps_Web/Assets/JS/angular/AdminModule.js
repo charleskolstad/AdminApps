@@ -6,4 +6,4 @@
     }).otherwise({
 
     });
-}).constant("dataUrl", "http://localhost:56640/");
+}).constant("dataUrl", "http://adminapps.chuckcreates.com/");

@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace AdminApps_Web.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         // GET: Admin
@@ -19,6 +20,111 @@ namespace AdminApps_Web.Controllers
             UserInfo model = UserManager.GetUserByName("cpkolsta");//User.Identity.Name);
             return View(model);
         }
+
+        #region login methods
+        [AllowAnonymous]
+        public ActionResult Login(string returnUrl)
+        {
+            Provider provider = new Provider();
+            return LoginStart(returnUrl);
+        }
+
+        [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
+        public ActionResult Login(LoginModel login, string returnUrl)
+        {
+            Provider provider = new Provider();
+
+            if (ModelState.IsValid)
+            {
+                if (Membership.ValidateUser(login.UserName, login.Password))
+                {
+                    FormsAuthentication.SetAuthCookie(login.UserName, false);
+                    return ManageReturnUrl(returnUrl);
+                }
+
+                ModelState.AddModelError("", "Invalid username and password.");
+            }
+
+            return View();
+        }
+
+        [AllowAnonymous]
+        public ActionResult RecoverPassword(string returnUrl)
+        {
+            return LoginStart(returnUrl);
+        }
+
+        [AllowAnonymous, HttpPost, ValidateAntiForgeryToken]
+        public ActionResult RecoverPassword(RecoverModel recover, string returnUrl)
+        {
+            Provider provider = new Provider();
+
+            if (ModelState.IsValid)
+            {
+                string errorMessage = string.Empty;
+                UserManager.RecoverPassword(recover, out errorMessage);
+
+                if (string.IsNullOrEmpty(errorMessage))
+                    return ManageReturnUrl(returnUrl);
+
+                ModelState.AddModelError("", errorMessage);
+            }
+
+            return View();
+        }
+
+        public ActionResult ManageAccount()
+        {
+            Provider provider = new Provider();
+
+            UpdateAccount account = new UpdateAccount();
+            account.UserName = Membership.GetUser(User.Identity.Name).UserName;
+
+            return View(account);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public ActionResult ManageAccount(UpdateAccount account, string returnUrl)
+        {
+            Provider provider = new Provider();
+
+            if (ModelState.IsValid)
+            {
+                string errorMessage = string.Empty;
+                UserManager.UpdatePassword(account, out errorMessage);
+
+                if (string.IsNullOrEmpty(errorMessage))
+                    return ManageReturnUrl(returnUrl);
+
+                ModelState.AddModelError("", errorMessage);
+            }
+
+            return View();
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return Redirect("Login");
+        }
+
+        private ActionResult LoginStart(string returnUrl)
+        {
+            if (User.Identity.IsAuthenticated)
+                return ManageReturnUrl(returnUrl);
+
+            ViewBag.ReturnUrl = returnUrl;
+            return View();
+        }
+
+        private ActionResult ManageReturnUrl(string returnUrl)
+        {
+            if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                return Redirect(returnUrl);
+
+            return Redirect("Index");
+        }
+        #endregion
 
         #region partial views
         public ActionResult AllUsers()

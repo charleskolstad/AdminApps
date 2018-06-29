@@ -74,6 +74,7 @@ namespace AdminApps_Web.Controllers
         public string UpdateProfile(UserInfo user)
         {
             string errorMessage = string.Empty;
+            user.ProfileImage = user.ProfileImage.Replace("../../..", "~");
             UserManager.UpdateUser(user, out errorMessage);
 
             return errorMessage;
@@ -89,7 +90,7 @@ namespace AdminApps_Web.Controllers
             var fileStream = new FileStream(Server.MapPath(fileName), FileMode.Create, FileAccess.ReadWrite);
             fileStream.Write(data, 0, data.Length);
             fileStream.Close();
-            userInfo.ProfileImage = newImage;
+            userInfo.ProfileImage = fileName;
 
             UserManager.UpdateUser(userInfo, out errorMessage);
             return errorMessage;

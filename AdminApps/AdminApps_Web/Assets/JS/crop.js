@@ -45,8 +45,8 @@ function drawCutout() {
 
     ctx.moveTo(20, 20);
     ctx.lineTo(20, 230);
-    ctx.lineTo(330, 230);
-    ctx.lineTo(330, 20);
+    ctx.lineTo(230, 230);
+    ctx.lineTo(230, 20);
     ctx.closePath();
     ctx.fill();
 }

@@ -26,6 +26,14 @@ namespace AdminApps_Model
         public string Email { get; set; }
     }
 
+    public class CompleteRec : RecoverModel
+    {
+        [Required]
+        public string Password { get; set; }
+        [Required]
+        public string ConfirmPassword { get; set; }
+    }
+
     public class UpdateAccount : AuthModel
     {
         [Required]

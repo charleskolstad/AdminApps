@@ -102,6 +102,18 @@ namespace AdminApps_Web.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult CompeRec()
+        {
+            return View();
+        }
+
+        [AllowAnonymous, HttpPost]
+        public ActionResult CompeRec(CompleteRec model)
+        {
+            return View();
+        }
+
         public ActionResult Logout()
         {
             FormsAuthentication.SignOut();
